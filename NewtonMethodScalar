@@ -1,0 +1,28 @@
+% Author: Goodwill Gwala
+% Date: 15/03/2019
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Details: Newton scalar method %
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [root] = Newtonmethodscaler(f, fprime, x0,tol)
+    x_current = x0;
+    x_next = 0;
+    iterations = 0;
+    while (1)
+        if double(fprime(f,x_current))== 0
+            disp('Cannot find root. fprime is zero.');
+            break;
+        end% double(fprime(f,x_current))== 0
+        iterations=iterations+1;
+        x_next = x_current - f(x_current) / fprime(f,x_current);
+        error(iterations) = abs(x_next-x_current)/abs(x_next);
+        if error(iterations) < tol
+            root = x_next;
+            break;
+        end % error(iterations) < tol
+        x_current = x_next;
+    end % while
+    % axis([1 iterations 0 1]);
+    % plot(1:1:iterations, error);
+    % legend('Bisection', 'Regular Falsi', 'Newton Method');
+end % newtonMethodScaler
